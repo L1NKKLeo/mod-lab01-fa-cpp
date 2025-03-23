@@ -15,7 +15,7 @@ unsigned int faStr1(const char* str) {
             if (*str >= '0' && *str <= '9') {
                 hasDigits = true;
             }
-        } else { 
+        } else {
             if (inWord) {
             if (!hasDigits) {
                 count++;
@@ -54,7 +54,7 @@ unsigned int faStr2(const char* str) {
                     }
                 }
             }
-        } else { 
+        } else {
             if (inWord) {
             if (validWord) {
                 count++;
