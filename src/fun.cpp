@@ -1,3 +1,4 @@
+// Copyright 2022 UNN-IASR
 #include "fun.h"
 
 unsigned int faStr1(const char* str) {
@@ -15,16 +16,20 @@ unsigned int faStr1(const char* str) {
                 hasDigits = true;
             }
         }
-        else if (inWord) {
-            if (!hasDigits) {
-                count++;
+        else {
+            if (inWord) {
+                if (!hasDigits) {
+                    count++;
+                }
+                inWord = false;
             }
-            inWord = false;
         }
         str++;
     }
-    if (inWord && !hasDigits) {
-        count++;
+    if (inWord) {
+        if (!hasDigits) {
+            count++;
+        }
     }
     return count;
 }
@@ -42,23 +47,29 @@ unsigned int faStr2(const char* str) {
                 validWord = (*str >= 'A' && *str <= 'Z');
                 firstChar = true;
             }
-            if (firstChar) {
-                firstChar = false;
-            }
-            else if (!(*str >= 'a' && *str <= 'z')) {
-                validWord = false;
+            else {
+                if (firstChar) {
+                    firstChar = false;
+                }
+                else if (!(*str >= 'a' && *str <= 'z')) {
+                    validWord = false;
+                }
             }
         }
-        else if (inWord) {
-            if (validWord) {
-                count++;
+        else {
+            if (inWord) {
+                if (validWord) {
+                    count++;
+                }
+                inWord = false;
             }
-            inWord = false;
         }
         str++;
     }
-    if (inWord && validWord) {
-        count++;
+    if (inWord) {
+        if (validWord) {
+            count++;
+        }
     }
     return count;
 }
@@ -77,10 +88,12 @@ unsigned int faStr3(const char* str) {
             }
             currentLength++;
         }
-        else if (inWord) {
-            wordCount++;
-            totalLength += currentLength;
-            inWord = false;
+        else {
+            if (inWord) {
+                wordCount++;
+                totalLength += currentLength;
+                inWord = false;
+            }
         }
         str++;
     }
@@ -89,6 +102,8 @@ unsigned int faStr3(const char* str) {
         totalLength += currentLength;
     }
 
-    if (wordCount == 0) return 0;
-    return (totalLength + wordCount / 2) / wordCount; // Округление
+    if (wordCount == 0) {
+        return 0;
+    }
+    return (totalLength + wordCount / 2) / wordCount;
 }
